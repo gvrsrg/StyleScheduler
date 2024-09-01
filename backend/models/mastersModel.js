@@ -1,0 +1,33 @@
+'use strict';
+const { Model } = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    class Master extends Model {}
+
+    Master.init(
+      {
+        // Model attributes are defined here
+        phoneNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+          },
+        role: {
+          type: DataTypes.STRING,
+          allowNull: false
+          },
+        firstName: {
+          type: DataTypes.STRING,
+          allowNull: false,        },
+        lastName: {
+          type: DataTypes.STRING,
+          // allowNull defaults to true
+        },
+      },
+      {
+        // Other model options go here
+        sequelize, // We need to pass the connection instance
+        modelName: 'Master', // We need to choose the model name
+      },
+    );
+
+    return Master;
+};

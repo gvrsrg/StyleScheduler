@@ -3,7 +3,12 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./models");
+//const db = require("./config/db.js");
 
+// db.authenticate()
+//   .catch(error => console.error(error))
+//   .then(() => console.log("Database connected..."));
+  
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
 });
