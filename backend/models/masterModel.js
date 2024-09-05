@@ -1,23 +1,24 @@
 'use strict';
 const { Model } = require('sequelize');
+const serviceModel = require('./serviceModel');
 module.exports = (sequelize, DataTypes) => {
     class Master extends Model {}
 
     Master.init(
       {
         // Model attributes are defined here
-        phoneNumber: {
+        phonenumber: {
             type: DataTypes.STRING,
             allowNull: false,
           },
-        role: {
+        workrole: {
           type: DataTypes.STRING,
           allowNull: false
           },
-        firstName: {
+        firstname: {
           type: DataTypes.STRING,
           allowNull: false,        },
-        lastName: {
+        lastname: {
           type: DataTypes.STRING,
           // allowNull defaults to true
         },
@@ -28,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
         modelName: 'Master', // We need to choose the model name
       },
     );
-
+    Master.associate = (models) => {
+      Master.belongsToMany(models.Service,{
+          through: 'ServiceMaster',
+          foreignKey: 'masterId',
+          otherKey: 'serviceId',
+          as: 'services'
+      });
+    }
     return Master;
 };

@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const masterModel = require('./masterModel');
 module.exports = (sequelize, DataTypes) => {
     class Service extends Model {}
 
@@ -17,6 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         modelName: 'Service', // We need to choose the model name
       },
     );
+    Service.associate = (models) => {
+      Service.belongsToMany(models.Master, {
+        through: 'ServiceMaster',
+        foreignKey: 'serviceId',
+        otherKey: 'masterId',
+        as: 'masters'
+      });
+    }
 
     return Service;
 };

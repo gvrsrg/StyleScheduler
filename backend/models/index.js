@@ -37,7 +37,7 @@ fs
     //console.log(model);
     
     db[model.name] = model;
-    console.log(db);
+    //console.log(db);
   });
 
 Object.keys(db).forEach(modelName => {
