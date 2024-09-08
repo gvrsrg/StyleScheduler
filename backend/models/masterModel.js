@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const serviceModel = require('./serviceModel');
+
 module.exports = (sequelize, DataTypes) => {
     class Master extends Model {}
 

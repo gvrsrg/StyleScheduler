@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const masterModel = require('./masterModel');
+
 module.exports = (sequelize, DataTypes) => {
     class Service extends Model {}
 
@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         // Model attributes are defined here
         serviceName: {
             type: DataTypes.STRING,
+            allowNull: false,
+          },
+        serviceDuration: {
+            type: DataTypes.INTEGER,
             allowNull: false,
           },
       },
