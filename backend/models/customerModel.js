@@ -1,9 +1,9 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class User extends Model {}
+    class Customer extends Model {}
 
-    User.init(
+    Customer.init(
       {
         // Model attributes are defined here
         phoneNumber: {
@@ -22,11 +22,13 @@ module.exports = (sequelize, DataTypes) => {
       {
         // Other model options go here
         sequelize, // We need to pass the connection instance
-        modelName: 'User', // We need to choose the model name
+        modelName: 'Customer', // We need to choose the model name
       },
     );
-    User.associate = (models) => {
-      User.hasOne(models.Master);
-    }
-    return User;
+    // Customer.associate = (models) => {
+    //     Customer.belongsTo(models.Schedule,{
+    // //         through: 'Schedule',
+    //     });
+    // }
+    return Customer;
 };

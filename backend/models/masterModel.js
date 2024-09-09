@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
           otherKey: 'serviceId',
           as: 'services'
       });
+      // Master.belongsTo(models.Schedule,{
+      // //   through: 'Schedule',
+      // });
+      Master.belongsTo(models.User);
     }
     return Master;
 };

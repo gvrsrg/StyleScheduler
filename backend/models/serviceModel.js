@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'masterId',
         as: 'masters'
       });
+      // Service.belongsTo(models.Schedule,{
+      // //   through: 'Schedule',
+      // });
     }
 
     return Service;
