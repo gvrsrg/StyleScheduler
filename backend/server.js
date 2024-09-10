@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const db = require("./models");
 //const db = require("./config/db.js");
 
+
+
 // db.authenticate()
 //   .catch(error => console.error(error))
 //   .then(() => console.log("Database connected..."));
@@ -15,6 +17,7 @@ db.sequelize.sync({ force: false }).then(() => {
 
 const app = express();
 
+require("./routes/schedulerRoutes")(app);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

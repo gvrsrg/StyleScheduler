@@ -1,7 +1,7 @@
-const db = require("./models");
-const SchedulerEvents = db.scheduler;
+const db = require("../models");
+const SchedulerEvents = db.Schedule;
 
-exports.findAll = (req, res) => {
+exports.getData = (req, res) => {
     SchedulerEvents.findAll()
         .then(data => {
             res.send(data);

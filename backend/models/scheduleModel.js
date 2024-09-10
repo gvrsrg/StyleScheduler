@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
 
         },
-        time: {
-            type: DataTypes.TIME,
-            allowNull: false,
-          },
-        status: {
-            type: DataTypes.STRING,
-            allowNull: false,
-          },
+        starttime: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        endtime: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
         // serviceId: {
         //     type: DataTypes.INTEGER,
         //     allowNull: false,
