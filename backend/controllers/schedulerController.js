@@ -2,7 +2,10 @@ const db = require("../models");
 const SchedulerEvents = db.Schedule;
 
 exports.getData = (req, res) => {
-    SchedulerEvents.findAll()
+    SchedulerEvents.findAll({ include: [ { model: db.Customer, as: 'Customer' } ,
+        { model: db.Master, as: 'Master' } ,
+        { model: db.Service, as: 'Service' }
+    ] })
         .then(data => {
             res.send(data);
         })
@@ -15,6 +18,8 @@ exports.getData = (req, res) => {
 };
 
 exports.crudActions = (req, res) => {
+    console.log("body: ", req.body.added);
+    
     if (req.body.added !== null && req.body.added.length > 0) {
         for (var i = 0; i < req.body.added.length; i++) {
             var insertData = req.body.added[i];
