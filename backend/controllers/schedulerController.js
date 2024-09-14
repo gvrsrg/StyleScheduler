@@ -2,10 +2,10 @@ const db = require("../models");
 const SchedulerEvents = db.Schedule;
 
 exports.getData = (req, res) => {
-    SchedulerEvents.findAll({ include: [ { model: db.Customer, as: 'Customer' } ,
-        { model: db.Master, as: 'Master' } ,
-        { model: db.Service, as: 'Service' }
-    ] })
+    SchedulerEvents.findAll({ include: [ { model: db.Customer, as: 'Customer', attributes: ["id", "phoneNumber", "firstName"] } ,
+        { model: db.Master, as: 'Master', attributes: ["id", "workrole", "firstname"] } ,
+        { model: db.Service, as: 'Service', attributes: ["id", "serviceName", "serviceDuration"] }
+    ], attributes: ["id", "starttime", "endtime", "comment"] })
         .then(data => {
             res.send(data);
         })
@@ -20,7 +20,7 @@ exports.getData = (req, res) => {
 exports.crudActions = (req, res) => {
     console.log("body: ", req.body.added);
     
-    if (req.body.added !== null){
+    if (!!req.body.added !== null){
         if (req.body.added.length > 0) {
         for (var i = 0; i < req.body.added.length; i++) {
             var insertData = req.body.added[i];

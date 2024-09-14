@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           // allowNull defaults to true
         },
+        level: {
+          type: DataTypes.INTEGER,
+          // allowNull defaults to true
+        },
       },
       {
         // Other model options go here
