@@ -20,7 +20,8 @@ exports.getData = (req, res) => {
 exports.crudActions = (req, res) => {
     console.log("body: ", req.body.added);
     
-    if (req.body.added !== null && req.body.added.length > 0) {
+    if (req.body.added !== null){
+        if (req.body.added.length > 0) {
         for (var i = 0; i < req.body.added.length; i++) {
             var insertData = req.body.added[i];
             SchedulerEvents.create(insertData)
@@ -34,9 +35,11 @@ exports.crudActions = (req, res) => {
                     });
                 });
           }
-      }
+      }}
 
-      if (req.body.changed !== null && req.body.changed.length > 0) {
+      console.log("changed: ", !!req.body.changed);
+      if (!!req.body.changed){
+        if (req.body.changed.length > 0) {
         for (var i = 0; i < req.body.changed.length; i++) {
             var updateData = req.body.changed[i];
             SchedulerEvents.update(updateData, { where: { id: updateData.id } })
@@ -55,9 +58,10 @@ exports.crudActions = (req, res) => {
                     });
                  });
            }
-       }
+       }}
 
-       if (req.body.deleted !== null && req.body.deleted.length > 0) {
+       if (!!req.body.deleted){
+        if (req.body.deleted.length > 0) {
            for (var i = 0; i < req.body.deleted.length; i++) {
              var deleteData = req.body.deleted[i];
              SchedulerEvents.destroy({ where: { id: deleteData.id } })
@@ -76,7 +80,7 @@ exports.crudActions = (req, res) => {
                     });
                  });
              }
-        }
+        }}
 };
 
 

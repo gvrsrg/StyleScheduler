@@ -19,22 +19,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        // serviceId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //   },
-        // masterId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //   },
-        // customerId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //   },
-          comment: {
+        comment: {
             type: DataTypes.STRING,
             allowNull: true,
-          }
+        }
 
       },
       {

@@ -11,7 +11,7 @@ const db = {};
 
 let sequelize;
 //console.log(config)
-console.log("Base name = ",basename);
+//console.log("Base name = ",basename);
 
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -31,7 +31,7 @@ fs
     );
   })
   .forEach(file => {
-    console.log(path.join(__dirname, file));
+    //console.log(path.join(__dirname, file));
     
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     //console.log(model);
