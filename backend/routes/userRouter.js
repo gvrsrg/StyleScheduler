@@ -4,7 +4,7 @@ module.exports = app =>{
     router.get("/getData", userController.getData);
     router.post("/create", userController.create); 
     router.get("/findOne/:id", userController.findOne);
-    router.get("/findByPhone/:phone", userController.findByPhone);
+    router.get("/findByPhone/:phoneNumber", userController.findByPhone);
     router.put("/update/:id", userController.update);
     router.delete("/delete/:id", userController.delete);
 

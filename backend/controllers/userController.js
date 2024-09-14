@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.User;
 
+// Retrieve all Users from the database.
 exports.getData = (req, res) => {
     User.findAll()
         .then(data => {
@@ -43,12 +44,8 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-  
-};
 
-// Find a single Tutorial with an id
+// Find a single user with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -64,7 +61,7 @@ exports.findOne = (req, res) => {
   
 };
 
-// Update a Tutorial by the id in the request
+// Update a User by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -85,7 +82,7 @@ exports.update = (req, res) => {
   
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a User with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -114,23 +111,27 @@ exports.delete = (req, res) => {
   
 };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-  
-};
 
-// Find all published Tutorials
+// Find a User by phone
 exports.findByPhone = (req, res) => {
     const phoneNumber = req.params.phoneNumber;
 
     User.findOne({ where: { phoneNumber: phoneNumber } })
         .then(data => {
-            res.send(data);
+            console.log(data);
+            
+            if (data == null) {
+                res.status(404).send({
+                    message: "User not found."
+                })}
+            else {
+                res.send(data);
+            }
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error occurred while retrieving user."
             });
         });
         
