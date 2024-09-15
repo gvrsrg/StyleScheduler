@@ -1,5 +1,5 @@
 const db = require("../models");
-const SchedulerEvents = db.Schedule;
+const {SchedulerEvents, Master, Customer, Service} = db;
 
 exports.getData = (req, res) => {
     SchedulerEvents.findAll({ include: [ { model: db.Customer, as: 'Customer', attributes: ["id", "phoneNumber", "firstName"] } ,
@@ -16,6 +16,107 @@ exports.getData = (req, res) => {
             });
         });
 };
+
+// Find a single event with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    SchedulerEvents.findByPk(id, { include: [ { model: db.Customer, as: 'Customer', attributes: ["id", "phoneNumber", "firstName"] } ,
+        { model: db.Master, as: 'Master', attributes: ["id", "workrole", "firstname"] } ,
+        { model: db.Service, as: 'Service', attributes: ["id", "serviceName", "serviceDuration"] }
+    ], attributes: ["id", "starttime", "endtime", "comment"] })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving SchedulerEvents with id=" + id
+            });
+        });
+
+};
+
+//create event
+exports.create = (req, res) => {
+    const {starttime, endtime, comment, customerId, masterId, serviceId} = req.body
+    const eventData = {
+        starttime: req.body.starttime,
+        endtime: req.body.endtime,
+        comment: req.body.comment,
+        customerId: customerId,
+        masterId: masterId,
+        serviceId: serviceId
+    };
+
+    // const master = await Master.findByPk(masterId)
+    // const service = await Service.findByPk(serviceId)
+    // const customer = await Customer.findByPk(customerId)
+
+    SchedulerEvents.create(eventData)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while inserting the events."
+                    });
+                });
+    
+};
+
+// update event
+exports.update = (req, res) => {
+    const id = req.params.id;
+
+    SchedulerEvents.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Event was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Event with id=${id}. Maybe Event was not found, or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Event with id=" + id
+            });
+        });
+
+};
+
+// delete event
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    SchedulerEvents.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Event was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Event with id=${id}. Maybe Event was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Event with id=" + id
+            });
+        });
+
+}
+
 
 exports.crudActions = (req, res) => {
     console.log("body: ", req.body.added);

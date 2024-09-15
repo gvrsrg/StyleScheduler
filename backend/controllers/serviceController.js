@@ -1,5 +1,5 @@
 const db = require("../models");
-const Service = db.Service;
+const {Service, Master} = db;
 
 // Retrieve all Services from the database.
 exports.getData = (req, res) => {
@@ -14,6 +14,42 @@ exports.getData = (req, res) => {
             });
         });
 };
+
+// Find a single Service with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    Service.findByPk(id)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Service with id=" + id
+            });
+        });
+  
+};
+
+//Find all Masters who perform Service
+exports.findByService = (req, res) => {
+    const id = req.params.id;
+
+    Master.findAll({
+        where: {
+            serviceId: id
+        }
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Service with id=" + id
+            });
+        });
+} 
+
 
 //Create new Service
 exports.create = (req, res) => {

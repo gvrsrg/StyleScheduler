@@ -41,5 +41,16 @@ module.exports = (sequelize, DataTypes) => {
       // });
       Master.belongsTo(models.User);
     }
+
+    // Master.addService = (masterId, serviceId) =>{
+    //     return Master.update({$push: {services: serviceId}},{where: {id: masterId}})
+    //     .then(data => {
+    //         return data
+    //     })
+    //     .catch(err => {
+    //         return err
+    //     })
+    //     }
+
     return Master;
 };
