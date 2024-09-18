@@ -1,5 +1,6 @@
 import React from 'react'
 import TimeSlot from './TimeSlot';
+import './TimeSlots.css';
 
 export default function SlotList({master}) {
     const startDate = new Date.now();
@@ -17,7 +18,7 @@ export default function SlotList({master}) {
 
   return (
     
-    <div>
+    <div className='time-slots'>
         {slots.map(slot => <TimeSlot key={slot} time={slot} />)}
     </div>
   )

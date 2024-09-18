@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import SlotList from './components/SlotList'
+import MasterList from './components/MasterList'
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     <>
     <div className="App">
     <h1>Welcome to Style Scheduler</h1>
-    <SlotList/>      
+    <MasterList/>      
 
     </div>
     </>
