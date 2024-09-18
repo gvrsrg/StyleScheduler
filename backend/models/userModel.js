@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.INTEGER,
           // allowNull defaults to true
         },
+        password: {
+          type: DataTypes.STRING,
+          // allowNull defaults to true
+        },
       },
       {
         // Other model options go here

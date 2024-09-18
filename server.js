@@ -25,6 +25,8 @@ require("./backend/routes/schedulerRoutes")(app);
 require("./backend/routes/userRoutes")(app);
 require("./backend/routes/masterRoutes")(app);
 require("./backend/routes/customerRoutes")(app);
+require("./backend/routes/authRoutes")(app);
+
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.join(__dirname, "/client/dist")));

@@ -8,7 +8,10 @@ function App() {
 
   return (
     <>
+    <div className="App">
+    <h1>Welcome to Style Scheduler</h1>      
 
+    </div>
     </>
   )
 }

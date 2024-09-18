@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.User;
+const bcrypt = require("bcrypt");
 
 // Retrieve all Users from the database.
 exports.getData = (req, res) => {
@@ -64,8 +65,17 @@ exports.findOne = (req, res) => {
 // Update a User by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
+    const {phoneNumber, firstName, lastName, level} = req.body;
 
-    User.update(req.body, {
+    const userData = {...req.body}// {phoneNumber, firstName, lastName, level}
+
+    if (!!req.body.password) {
+        password = bcrypt.hashSync(req.body.password, 8)
+        userData.password = password
+    }
+
+
+    User.update(userData, {
         where: { id: id }
     })
         .then(num => {
@@ -137,3 +147,19 @@ exports.findByPhone = (req, res) => {
         
   
 };
+
+exports.allAccess = (req, res) => {
+    res.status(200).send("Public Content.");
+  };
+  
+  exports.userBoard = (req, res) => {
+    res.status(200).send("Customer Content.");
+  };
+  
+  exports.adminBoard = (req, res) => {
+    res.status(200).send("Admin Content.");
+  };
+  
+  exports.managerBoard = (req, res) => {
+    res.status(200).send("Manager Content.");
+  };
