@@ -96,14 +96,14 @@ exports.create = (req, res) => {
     }
 
     // Create a Customer
-    const customer = {
+    const customerInfo = {
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName
     };
 
     // Save Customer in the database
-    Customer.create(customer)
+    Customer.create(customerInfo)
         .then(data => {
             res.send(data);
         })
@@ -118,12 +118,12 @@ exports.create = (req, res) => {
 //Update Customer
 exports.update = (req, res) => {
     const id = req.params.id;
-    const customer = {
+    const customerInfo = {
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName
     };
-    Customer.update(customer, { where: { id: id } })
+    Customer.update(customerInfo, { where: { id: id } })
         .then(num => {
             if (num == 1) {
                 res.send({

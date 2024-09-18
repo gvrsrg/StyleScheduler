@@ -62,8 +62,8 @@ exports.signup = (req, res) => {
             id: user.id,
             phoneNumber: user.phoneNumber,
             firstName: user.firstName,
-            lastName: lastName,
-            level: level,
+            lastName: user.lastName,
+            level: user.level,
             accessToken: token
           });
 
