@@ -11,7 +11,8 @@ export default function MasterList() {
   const [filteredList, setFilteredList] = React.useState([])
   const [sort, setSort] = React.useState('')
 
-  const baseURL = 'http://127.0.0.1:3001'
+  //const baseURL = 'http://127.0.0.1:3001'
+  const baseURL = ''
 
   React.useEffect(() => {
     fetch(`${baseURL}/api/masters/`)
