@@ -3,6 +3,7 @@ module.exports = app => {
     var router = require("express").Router();
     router.get("/getData", schedulerController.getData);
     router.get("/findOne/:id", schedulerController.findOne);
+    router.get("/findByMaster/:id", schedulerController.findByMaster);
     router.post("/", schedulerController.create);
     router.put("/:id", schedulerController.update);
     router.delete("/:id", schedulerController.delete);

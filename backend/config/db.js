@@ -18,7 +18,7 @@ const config = {
     connection: {
         options: `project=${ENDPOINT_ID}`,
     },
-    logging: false,
+    logging: true,
     pool: {
         max: 5,
         min: 0,

@@ -32,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     );
     Schedule.associate = (models) => {
-        Schedule.belongsTo(models.Customer);
-        Schedule.belongsTo(models.Master);
-        Schedule.belongsTo(models.Service);
+        Schedule.belongsTo(models.Customer, {as:"customer", foreignKey:"customerId"});
+        Schedule.belongsTo(models.Master, {as:"master", foreignKey:"masterId"});
+        Schedule.belongsTo(models.Service, {as:"service", foreignKey:"serviceId"});
     }
     return Schedule;
 };
