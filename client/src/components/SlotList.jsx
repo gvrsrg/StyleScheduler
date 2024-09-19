@@ -1,9 +1,10 @@
 import React from 'react'
 import TimeSlot from './TimeSlot';
-import './TimeSlots.css';
+import './slots.css';
 
-export default function SlotList({master}) {
-    const startDate = new Date.now();
+export default function SlotList(master) {
+    const {id, firstName, lastName, workrole} = master.master;
+    const startDate = Date.now();
     const startHour = 8;  // 8:00 AM
     const endHour = 20;   // 8:00 PM
     const slotDuration = 30; // 30 minutes
@@ -14,7 +15,9 @@ export default function SlotList({master}) {
             const time = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
             slots.push(time);
         }
-    }   
+    } 
+    console.log(slots);
+      
 
   return (
     

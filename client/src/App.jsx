@@ -9,13 +9,13 @@ function App() {
 
 
   return (
-    <>
+
     <div className="App">
-    <h1>Welcome to Style Scheduler</h1>
-    <MasterList/>      
+      <h1>Welcome to Style_Scheduler</h1>
+      <MasterList/>      
 
     </div>
-    </>
+
   )
 }
 
