@@ -1,18 +1,22 @@
 import React from 'react'
 import MasterCard from './MasterCard'
 import RolesList from './RolesList'
+//import "dotenv/config.js";
+// import { config } from 'dotenv';
+// config()
 
 
 export default function MasterList() {
 
   const [masterList, setMasterList] = React.useState([])
   const [roles, setRoles] = React.useState([])
-  const [search, setSearch] = React.useState('')
   const [filteredList, setFilteredList] = React.useState([])
-  const [sort, setSort] = React.useState('')
+
 
   //const baseURL = 'http://127.0.0.1:3001'
-  const baseURL = ''
+  const baseURL = process.env.REACT_APP_BASE_URL
+  //console.log(baseURL);
+  
 
   React.useEffect(() => {
     fetch(`${baseURL}/api/masters/`)
@@ -37,12 +41,12 @@ export default function MasterList() {
   }, [])
 
   const handleFilter = (e) => {
-    setFilteredList(masterList.filter(master => master.workrole === e.target.innerHTML));
+    setFilteredList(masterList.filter(master => (master.workrole === e.target.innerHTML) || (e.target.innerHTML === "all") ));
   }
 
   const handleAppointment = (e) => {
     e.preventDefault();
-    console.log(e.target.value, e.target.innerHTML);
+    //console.log(e.target.value, e.target.innerHTML);
     const masterId = e.target.getAttribute('masterId')
     //{starttime, endtime, comment, customerId, masterId, serviceId}
     const timeString = e.target.innerHTML;
@@ -50,15 +54,16 @@ export default function MasterList() {
     const date = new Date();
     const starttime = new Date();
     const endtime = new Date();
-    starttime.setHours(hours);
-    starttime.setMinutes(minutes);
-    starttime.setSeconds(0);
-    starttime.setMilliseconds(0);
+    starttime.setUTCHours(hours);
+    starttime.setUTCMinutes(minutes);
+    starttime.setUTCSeconds(0);
+    starttime.setUTCMilliseconds(0);
+ 
 
-    endtime.setHours(hours);
-    endtime.setMinutes(minutes+30);
-    endtime.setSeconds(0);
-    endtime.setMilliseconds(0);
+    endtime.setUTCHours(hours);
+    endtime.setUTCMinutes(minutes+30);
+    endtime.setUTCSeconds(0);
+    endtime.setUTCMilliseconds(0);
     const appointment = {
       starttime: starttime,
       endtime: endtime,
@@ -68,7 +73,6 @@ export default function MasterList() {
       ServiceId: 1
     }
 
-    console.log(appointment);
 
     fetch(`${baseURL}/api/scheduleevents/`,{
          method: 'POST',
@@ -79,10 +83,9 @@ export default function MasterList() {
          body: JSON.stringify(appointment)
      })
      .then(response => response.json())
-     .then(data => console.log(data))
-     .catch(error => console.log(error))
-
-    ;
+     .then(data => setFilteredList([...filteredList]))
+     .catch(error => console.log(error));
+     ;
   }
 
   return (
@@ -96,7 +99,7 @@ export default function MasterList() {
             firstName={master.firstname}
             lastName={master.lastname}
             workrole={master.workrole}
-            handleAppointment={(e)=>handleAppointment(e)}
+            //handleAppointment={(e)=>handleAppointment(e)}
             />)}  
             )}
 

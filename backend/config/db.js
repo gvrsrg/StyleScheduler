@@ -24,7 +24,8 @@ const config = {
         min: 0,
         acquire: 30000,
         idle: 10000
-    }
+    },
+    timezone:"+03:00"
 }
 
 //console.log(config);

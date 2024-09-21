@@ -40,7 +40,7 @@ exports.findOne = (req, res) => {
 exports.findByMaster = (req, res) => {
     const id = req.params.id;
 
-    Schedule.findAll({ where: { MasterId: id } })
+    Schedule.findAll({ where: { masterId: id } })
         .then(data => {
             res.send(data);
         })
