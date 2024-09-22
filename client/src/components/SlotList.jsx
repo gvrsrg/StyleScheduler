@@ -11,7 +11,27 @@ export default function SlotList(props) {
     const slotDuration = 30; // 30 minutes
     const slots = [];
     const [masterEvents, setMasterEvents] = React.useState(props.masterEvents);
-    
+
+    //console.log(props.id);
+    React.useEffect(() => {
+      fetch(`${baseURL}/api/scheduleevents/findByMaster/${props.master.id}`)
+      .then((res) => {
+  //      console.log("res", res);
+        return res.json();
+      })
+      .then((data) => {
+        //console.log("data", data);
+  
+        //appointments = data.map(event => event.starttime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }))
+        const appointments = data.map(event => event.starttime.substring(11,16))
+        //console.log("appointments", appointments);
+        appointments.sort();
+        setMasterEvents(appointments)
+    })
+      .catch((e) => console.log(e));
+   
+    }, []);
+
     const handleAppointment = (e) => {
         e.preventDefault();
         //console.log(e.target.value, e.target.innerHTML);
@@ -52,7 +72,7 @@ export default function SlotList(props) {
          })
          .then(response => response.json())
          .then(data => {
-             setMasterEvents([...masterEvents,timeString])
+             setMasterEvents([...masterEvents,timeString].toSorted())
             })
          .catch(error => console.log(error));
          ;

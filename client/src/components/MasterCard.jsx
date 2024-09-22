@@ -28,12 +28,12 @@ export default function MasterCard(props) {
   }, [])
 //  console.log(masterEvents);
   
-
+  const {id, firstName, lastName, workrole} = props;
 
   return (
     <div>
       <h2>Master:</h2>
-      <Master master={props} />
+      <Master id={id} firstName={firstName} lastName={lastName} workrole={workrole}  />
       <SlotList 
         master={props} 
         masterEvents={masterEvents} 
