@@ -9,8 +9,10 @@ module.exports = app =>{
     router.post("/", userController.create); 
     router.put("/:id", userController.update);
     router.delete("/:id", userController.delete);
-
-
+    router.get("/test/all", userController.allAccess);
+    router.get("/test/admin", [authJwt.verifyToken, authJwt.isAdmin], userController.adminBoard
+      );
     
     app.use('/api/users', router);
+
 }

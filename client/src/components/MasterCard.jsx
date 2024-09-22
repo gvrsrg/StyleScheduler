@@ -32,8 +32,9 @@ export default function MasterCard(props) {
 
   return (
     <div>
-      <h2>Master:</h2>
-      <Master master={props} />
+      <h2>
+        Master: <Master master={props} />
+      </h2>
       <SlotList 
         master={props} 
         masterEvents={masterEvents} 

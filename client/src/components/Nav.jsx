@@ -5,9 +5,20 @@ const Nav = (props) => {
     <>
       <header>
         <nav>
-          <Link to='/'>Home</Link>
-          <Link to='/user'>Make appointment</Link> 
-          <Link to='/admin'>Admin panel</Link>
+          <ul>
+            <li>
+              <Link to='/'>Home</Link>
+            </li>
+            <li>
+              <Link to='/user'>Make appointment</Link>
+            </li>
+            <li>
+              <Link to='/admin'>Admin panel</Link>
+            </li>
+            <li>
+              <Link to='/login'>Login</Link>
+            </li>
+          </ul>
         </nav>
       </header>
     </>

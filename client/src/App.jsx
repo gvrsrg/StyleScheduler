@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import SlotList from './components/SlotList'
 import MasterList from './components/MasterList'
-
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Home from './components/Home'
+import { useState } from "react";
+import { createBrowserRouter, RouterProvider, Outlet, Routes, Route } from "react-router-dom";
+//import Home from './components/Home'
 import AdminPanel from './components/AdminPanel'
 import Nav from './components/Nav'
+import RequireAuth from './components/RequireAuth';
+import Login from './components/Login';
+import Home from "./components/Home";
+import LoginRegister from "./components/LoginRegister";
+import Header from "./components/Header";
+import Dashboard from "./components/Dashboard";
+import Auth from "./auth/Auth";
 
 const Root = () => {
   return (
@@ -26,15 +29,26 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Home title="Style_Scheduler"/>,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "/user",
-        element: <MasterList />,
+        element: 
+        <RequireAuth>
+          <MasterList />
+        </RequireAuth>
       },
       {
         path: "/admin",
-        element: <AdminPanel />,
+        element: 
+          <RequireAuth>
+            <AdminPanel />
+          </RequireAuth>
+        ,
       },
     ],
   },
@@ -42,15 +56,31 @@ const router = createBrowserRouter([
 
 function App() {
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-  console.log(REACT_APP_BASE_URL);
+  //console.log(REACT_APP_BASE_URL);
   
 
 
   return (
 
     <div className="App">
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signin' element={<LoginRegister title={"Login"} />} />
+        <Route path='/signup' element={<LoginRegister title={"Register"} />} />
+        <Route
+          path='/dash'
+          element={
+            <Auth>
+              <Dashboard />
+            </Auth>
+          }
+        />
+      </Routes>
+
+
       <h1>Welcome to Style_Scheduler</h1>
-      <RouterProvider router={router}/>
+      {/* <RouterProvider router={router}/> */}
     </div>
 
   )

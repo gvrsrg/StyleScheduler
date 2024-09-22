@@ -5,8 +5,8 @@ export default function Master(master) {
     
   const {id, firstName, lastName, workrole} = master.master;
   return (
-    <div>
-        <h3>{firstName} {lastName},{workrole}</h3>
-    </div>
+    <>
+        <strong>{firstName} {lastName},{workrole}</strong>
+    </>
   )
 }

@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware");
 const authController = require("../controllers/authController");
+const userController = require("../controllers/userController.js");
 var router = require("express").Router();
 
 module.exports = (app) => {
@@ -11,6 +12,7 @@ module.exports = (app) => {
     );
 
     router.post("/signin", authController.signin);
+    router.post("/login", userController.loginUser);
 
     //router.use('/api/auth', router);
 

@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 //import dotenv from 'dotenv';
 //console.log(dotenv);
+import { BrowserRouter } from "react-router-dom";
 
 
 //dotenv.config();
@@ -11,6 +12,8 @@ import './index.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 )

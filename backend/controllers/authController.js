@@ -26,7 +26,8 @@ exports.signup = (req, res) => {
     });
   };
   
-  exports.signin = (req, res) => {
+exports.signin = (req, res) => {
+    
     User.findOne({
       where: {
         phoneNumber: req.body.phoneNumber
@@ -49,15 +50,22 @@ exports.signup = (req, res) => {
             message: "Invalid Password!"
           });
         }
-  
-        const token = jwt.sign({ id: user.id },
+        console.log(user);
+        
+        const token = jwt.sign(
+                                { 
+                                  id: user.id, 
+                                  firstName: user.firstName,
+                                  lastName: user.lastName,
+                                  level: user.level
+                                },
                                 config.secret,
                                 {
                                   algorithm: 'HS256',
                                   allowInsecureKeySizes: true,
                                   expiresIn: 86400, // 24 hours
                                 });
-  
+        //req.session.user = user;
         res.status(200).send({
             id: user.id,
             phoneNumber: user.phoneNumber,

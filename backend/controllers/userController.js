@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.User;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Retrieve all Users from the database.
 exports.getData = (req, res) => {
@@ -148,18 +149,78 @@ exports.findByPhone = (req, res) => {
   
 };
 
+exports.loginUser = async (req, res) => {
+    const { phoneNumber, password } = req.body;
+
+    try {
+      const user = await User.findOne({ where: { phoneNumber: phoneNumber } });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found, ...." });
+      }
+
+      const passwordMatch = await bcrypt.compare(password + "", user.password);
+
+      if (!passwordMatch) {
+        return res.status(401).json({ message: "Authentication failed..." });
+      }
+
+      /** create the token */
+      const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+
+      const accesstoken = jwt.sign(
+        { userid: user.id, email: user.phoneNumber },
+        ACCESS_TOKEN_SECRET,
+        { expiresIn: "60s" }
+      );
+
+      const refreshtoken = jwt.sign(
+        { userid: user.id, phoneNumber: user.phoneNumber },
+        REFRESH_TOKEN_SECRET,
+        { expiresIn: "3d" }
+      );
+
+      // set token in httpOnly
+      res.cookie("token", accesstoken, {
+        httpOnly: true,
+        // secure:
+        maxAge: 60 * 1000,
+      });
+
+      res.cookie("refresh", refreshtoken, {
+        httpOnly: true,
+        // secure:
+        maxAge: 60 * 60 * 1000 * 24 * 3,
+      });
+
+      //await userModel.updateRefreshToken(refreshtoken, user.id);
+
+      res.json({
+        message: "Login succesfully",
+        user: { userid: user.id, phoneNumber: user.phoneNumber },
+        token: accesstoken,
+        refresh: refreshtoken,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "internal server error" });
+    }
+  },
+
+
+
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
   };
   
-  exports.userBoard = (req, res) => {
+exports.userBoard = (req, res) => {
     res.status(200).send("Customer Content.");
   };
   
-  exports.adminBoard = (req, res) => {
+exports.adminBoard = (req, res) => {
     res.status(200).send("Admin Content.");
   };
   
-  exports.managerBoard = (req, res) => {
+exports.managerBoard = (req, res) => {
     res.status(200).send("Manager Content.");
   };

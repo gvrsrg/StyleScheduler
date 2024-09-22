@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const db = require("./backend/models");
 //const db = require("./config/db.js");
 
@@ -17,8 +18,14 @@ db.sequelize.sync({ force: false }).then(() => {
 
 const app = express();
 
-
-app.use(cors());
+app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+    optionsSuccessStatus: 200
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 require("./backend/routes/schedulerRoutes")(app);
