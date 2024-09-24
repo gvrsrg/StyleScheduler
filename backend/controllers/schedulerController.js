@@ -1,8 +1,21 @@
 const db = require("../models");
 const {Schedule, Master, Customer, Service} = db;
 
+const Op = db.Sequelize.Op;
+
 exports.getData = (req, res) => {
-    Schedule.findAll({ include: [ { model: db.Customer, as: 'Customer', attributes: ["id", "phoneNumber", "firstName"] } ,
+    const dayStart = new Date();
+    dayStart.setHours(0, 0, 0, 0);
+
+    const dayEnd = new Date();
+    dayEnd.setHours(23, 59, 59, 999);
+
+    Schedule.findAll({
+         where: { starttime: {
+            [Op.between]: [dayStart, dayEnd]
+            } 
+        } ,
+         include: [ { model: db.Customer, as: 'Customer', attributes: ["id", "phoneNumber", "firstName"] } ,
         { model: db.Master, as: 'Master', attributes: ["id", "workrole", "firstname"] } ,
         { model: db.Service, as: 'Service', attributes: ["id", "serviceName", "serviceDuration"] }
     ], attributes: ["id", "starttime", "endtime", "comment"] })
@@ -39,8 +52,18 @@ exports.findOne = (req, res) => {
 // find events by master
 exports.findByMaster = (req, res) => {
     const id = req.params.id;
+    const dayStart = new Date();
+    dayStart.setHours(0, 0, 0, 0);
 
-    Schedule.findAll({ where: { masterId: id } })
+    const dayEnd = new Date();
+    dayEnd.setHours(23, 59, 59, 999);
+
+    Schedule.findAll({ where: 
+        { masterId: id,
+         starttime: {
+            [Op.between]: [dayStart, dayEnd]
+            }   
+         } })
         .then(data => {
             res.send(data);
         })
