@@ -1,3 +1,4 @@
+
 module.exports = app => {
     const masterController = require("../controllers/masterController.js");
     var router = require("express").Router();
@@ -12,7 +13,7 @@ module.exports = app => {
 
 
 
-    router.put("/:id", masterController.update);
+    router.put("/:id",  masterController.update);
     router.delete("/:id", masterController.delete);
     app.use('/api/masters', router);
 }
