@@ -133,7 +133,6 @@ exports.addService = async (req, res) => {
 }
 
 // Create new Master
-    
 exports.create = (req, res) => {
     const { phonenumber, workrole, firstname, lastname} = req.body
     const master = {
@@ -155,7 +154,6 @@ exports.create = (req, res) => {
             });
         });
 };
-
 
 // Update Master
 exports.update = (req, res) => {
@@ -186,7 +184,6 @@ exports.update = (req, res) => {
 };
 
 // Delete Master
-
 exports.delete = (req, res) => {
     const id = req.params.id;
     Master.destroy({ where: { id: id } })
